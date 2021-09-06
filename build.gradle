@@ -7,4 +7,9 @@ repositories {
 }
 
 dependencies {
+ testImplementation("com.codeborne:selenide:5.24.0","org.junit.jupiter:junit-jupiter:5.7.1")//для подключения всех модулей junit
+    testRuntimeOnly("org.slf4j:slf4j-simple:1.7.29","org.junit.jupiter:junit-jupiter-engine:5.7.1")//для того, чтобы тесты запускались одинково в любой среде исполнения
+}
+test {
+    useJUnitPlatform()//для использования 5-го JUint пишем эту штуку
 }
