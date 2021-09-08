@@ -1,7 +1,6 @@
 package com.demoqa;
 
 import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +8,6 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Condition.text;
-
 
 public class PracticeFormTest {
     @BeforeAll
@@ -46,7 +44,5 @@ public class PracticeFormTest {
             $(".table-responsive").shouldHave(text("Anna Petrova"), text("chaika@gmail.com"), text("Female"),
                     text("7903627451"), text("05 January,1984"), text("English, Maths"), text("Music"), text("test.png"),
                     text("Lunacharskogo,10"), text("NCR Delhi"));
-
-
         }
     }
