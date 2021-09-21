@@ -1,6 +1,4 @@
-**Lesson 1. QAGuru**
+**Lesson 5. QAGuru**
 
-Test website - Demoqa.com
-Test GitHub - Demoqa.com
-
+PageObjects+Components+JavaFaker
 

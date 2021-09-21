@@ -1,48 +1,44 @@
 package com.demoqa;
 
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
+import com.github.javafaker.Faker;
+import com.demoqa.components.CalendarComponent;
+import com.demoqa.page.RegistrationPage;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Condition.text;
+import java.util.Locale;
 
-public class PracticeFormTest {
-    @BeforeAll
-    static void beforeAll() {
-        Configuration.startMaximized = true;
-        Configuration.holdBrowserOpen = true;
+public class PracticeFormTest extends TestBase {
+    RegistrationPage registrationPage = new RegistrationPage();
+    CalendarComponent calendarComponent = new CalendarComponent();
+    Faker rufaker = new Faker(new Locale("ru"));
+    Faker ukfaker = new Faker(new Locale("en-GB"));
+
+    String firstname = rufaker.name().firstName();
+    String lastname = rufaker.name().lastName();
+    String usermail = ukfaker.internet().emailAddress();
+    String gender = "Female";
+    String mobile = rufaker.phoneNumber().subscriberNumber(10);
+    String address = ukfaker.address().fullAddress();
+    String file_photo = "img/test.png";
+
+    @Test
+    void fillFormTest() {
+        registrationPage.openPage();
+        registrationPage.typeFirstName(firstname)
+                .typeLastName(lastname)
+                .typeUserEmail(usermail)
+                .typeGender(gender)
+                .typeMobile(mobile);
+        calendarComponent.setDate("05", "January", "1984");
+        registrationPage.chooseSubject("English")
+                .chooseSubject("Maths");
+        registrationPage.chooseHobby("Music");
+        registrationPage.uploadPic(file_photo);
+        registrationPage.typeAddress(address);
+        registrationPage.chooseState("NCR");
+        registrationPage.chooseCity("Delhi");
+        registrationPage.pressSubmit();
+        registrationPage.checkFields(firstname + ' ' + lastname, usermail, gender, mobile, "05 January,1984",
+                "English, Maths", "Music", "test.png", "Lunacharskogo,10", "NCR Delhi");
     }
-        @Test
-        void fillFormTest() {
-            open("https://demoqa.com/automation-practice-form");
-            $("#firstName").setValue("Anna");
-            $("#lastName").setValue("Petrova");
-            $("#userEmail").setValue("chaika@gmail.com");
-            $("#genterWrapper").$(byText("Female")).click();
-            $("#userNumber").setValue("7903627451");
-            $("#userNumber").setValue("7903627451");
-            $("#dateOfBirthInput").click();
-            $(".react-datepicker__month-select").click();
-            $(".react-datepicker__month-select").selectOption("January");
-            $(".react-datepicker__year-select").selectOption("1984");
-            $x("//div[contains(@aria-label, \"January 5th, 1984\")]").click();
-            $("#subjectsInput").setValue("English").pressEnter();
-            $("#subjectsInput").setValue("Math").pressEnter();
-            $("#hobbiesWrapper").$(byText("Music")).click();
-            $("#uploadPicture").uploadFromClasspath("img/test.png");
-            $("#currentAddress").setValue("Lunacharskogo,10");
-            $("#currentAddress").scrollIntoView(true);
-            $("#state").click();
-            $("#stateCity-wrapper").$(byText("NCR")).click();
-            $("#city").click();
-            $("#stateCity-wrapper").$(byText("Delhi")).click();
-            $("#submit").click();
-            $(".modal-title").shouldHave(text("Thanks for submitting the form"));
-            $(".table-responsive").shouldHave(text("Anna Petrova"), text("chaika@gmail.com"), text("Female"),
-                    text("7903627451"), text("05 January,1984"), text("English, Maths"), text("Music"), text("test.png"),
-                    text("Lunacharskogo,10"), text("NCR Delhi"));
-        }
-    }
+}
