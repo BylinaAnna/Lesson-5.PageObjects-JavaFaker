@@ -39,6 +39,6 @@ public class PracticeFormTest extends TestBase {
         registrationPage.chooseCity("Delhi");
         registrationPage.pressSubmit();
         registrationPage.checkFields(firstname + ' ' + lastname, usermail, gender, mobile, "05 January,1984",
-                "English, Maths", "Music", "test.png", "Lunacharskogo,10", "NCR Delhi");
+                "English, Maths", "Music", "test.png", address, "NCR Delhi");
     }
 }
