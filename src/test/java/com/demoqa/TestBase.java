@@ -15,10 +15,9 @@ public class TestBase {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
-        Configuration.startMaximized = true;
-        Configuration.holdBrowserOpen = true;
-        Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserCapabilities = capabilities;
+        Configuration.startMaximized = true;
+        Configuration.baseUrl = "https://demoqa.com";
         Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub/";
     }
 
